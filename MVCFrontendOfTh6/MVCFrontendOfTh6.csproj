@@ -189,6 +189,12 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\SanPham\Index.cshtml" />
+    <Content Include="Views\SanPham\SpTheoTen.cshtml" />
+    <Content Include="Views\SanPham\laygiaminmax.cshtml" />
+    <Content Include="Views\SanPham\laygia.cshtml" />
+    <Content Include="Views\SanPham\Getbymaloai.cshtml" />
+    <Content Include="Views\SanPham\laytheoten.cshtml" />
+    <Content Include="Views\SanPham\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

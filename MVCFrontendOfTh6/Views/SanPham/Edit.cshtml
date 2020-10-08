@@ -1,0 +1,73 @@
+﻿@using MVCFrontendOfTh6.Models;
+@model SanPham
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title">Add</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            <form id="demo-form2" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
+                <input type="hidden" id="aoe" name="aoe" value="0" />
+                <div class="row form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                        Mã sản phẩm <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" required="required" name="MaSanPham" value="@Model.Ma" class="form-control ">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Tên sản phẩm <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input class="date-picker form-control" name="TenSanPham" value="@Model.Ten" required="required" type="text">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                        Mã danh mục <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" name="MaDanhMuc" value="@Model.MaDanhMuc" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Đơn giá <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control" value="@Model.DonGia" name="DonGia">
+                    </div>
+
+                </div>
+                <div class="ln_solid"></div>
+                <div class="row form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <button type="submit" class="btn btn-success">Lưu</button>
+                        <button class="btn btn-primary" type="reset">Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+    </div>
+</div>
+

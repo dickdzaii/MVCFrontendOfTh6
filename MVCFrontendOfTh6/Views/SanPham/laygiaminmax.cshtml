@@ -1,0 +1,35 @@
+﻿@using MVCFrontendOfTh6.Models
+@model IEnumerable<SanPham>
+@{
+    ViewBag.Title = "laygiaminmax";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>laygiaminmax</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã </th>
+            <th>tên</th>
+            <th>Loại</th>
+            <th>Đơn Giá</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.Ma</td>
+                <td>@item.Ten</td>
+                <td>@item.MaDanhMuc</td>
+                <td>@string.Format("{0:#,##0}", item.DonGia)</td>
+                <td></td>
+                <td><a class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?');" href="~/Home/xoa/@item.Ma">Xóa</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

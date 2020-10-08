@@ -58,13 +58,28 @@ namespace MVCFrontendOfTh6.Controllers
         }
         
         // GET: SanPham/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            SanPham  product = null;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(uri);
+                var respondtask = client.GetAsync("api/SanPhams/)"+id);
+                respondtask.Wait();
+                var rs = respondtask.Result;
+                if (rs.IsSuccessStatusCode)
+                {
+                    var readtask = rs.Content.ReadAsAsync<SanPham>();
+                    readtask.Wait();
+                    product = readtask.Result;
+                }
+                else product = null;
+            }
+            return View(product);
         }
 
         public ActionResult Getbymaloai( int id)
-        {SanPham product=null;
+        {List<SanPham> product=null;
             using (var client = new HttpClient())
             {
 
@@ -74,9 +89,10 @@ namespace MVCFrontendOfTh6.Controllers
                 var rs = respondtask.Result;
                 if (rs.IsSuccessStatusCode)
                 {
-                    var readtask = rs.Content.ReadAsAsync<SanPham>();
+                    var readtask = rs.Content.ReadAsAsync<List<SanPham>>();
                     readtask.Wait();
                     product = readtask.Result;
+                    
                 }
                 else product = null;
             }
@@ -101,6 +117,13 @@ namespace MVCFrontendOfTh6.Controllers
         }
         public ActionResult laygiaminmax(int min,int max)
         {
+            if (max > min) { 
+                ViewBag.max = max;
+                ViewBag.min = min;
+            }
+            else { ViewBag.max = min;
+                ViewBag.min = max; 
+            }
             var client = new HttpClient();
             List<SanPham> product;
             client.BaseAddress = new Uri(uri);
@@ -118,17 +141,19 @@ namespace MVCFrontendOfTh6.Controllers
         }
         public ActionResult laytheoten(string ten)
         {
+            ViewBag.tensanpham = ten;
             var client = new HttpClient();
-            SanPham product;
+            List<SanPham> product;
             client.BaseAddress = new Uri(uri);
             var respondtask = client.GetAsync("SanPhams/by-name/" + ten);
             respondtask.Wait();
             var rs = respondtask.Result;
             if (rs.IsSuccessStatusCode)
             {
-                var readtask = rs.Content.ReadAsAsync< SanPham>();
+                var readtask = rs.Content.ReadAsAsync<List<SanPham>>();
                 readtask.Wait();
                 product = readtask.Result;
+               
             }
             else product = null;
             return View(product);
@@ -155,9 +180,10 @@ namespace MVCFrontendOfTh6.Controllers
         }
 
         // GET: SanPham/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var pd = Details(id);
+            return View(pd);
         }
 
         // POST: SanPham/Edit/5
@@ -177,24 +203,51 @@ namespace MVCFrontendOfTh6.Controllers
         }
 
         // GET: SanPham/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult xoa(int id)
         {
-            return View();
+            //var client = new HttpClient();
+            //SanPham product;
+            //client.BaseAddress = new Uri(uri);
+            //var respondtask = client.GetAsync("SanPhams/by-name/" + ten);
+            //respondtask.Wait();
+            //var rs = respondtask.Result;
+            //if (rs.IsSuccessStatusCode)
+            //{
+            //    var readtask = rs.Content.ReadAsAsync<SanPham>();
+            //    readtask.Wait();
+            //    product = readtask.Result;
+
+            //}
+            //else product = null;
+            return RedirectToAction("Index");
         }
 
         // POST: SanPham/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id)
         {
             try
             {
                 // TODO: Add delete logic here
+                var client = new HttpClient();
+                SanPham product;
+                client.BaseAddress = new Uri(uri);
+                var respondtask = client.DeleteAsync("SanPhams/xoa/" + id);
+                respondtask.Wait();
+                var rs = respondtask.Result;
+                if (rs.IsSuccessStatusCode)
+                {
+                    var readtask = rs.Content.ReadAsAsync<SanPham>();
+                    readtask.Wait();
+                    product = readtask.Result;
 
+                }
+                else product = null;
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
     }
